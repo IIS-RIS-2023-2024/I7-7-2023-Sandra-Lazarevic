@@ -35,7 +35,12 @@ public class Point extends Shape {
 		}
 		return 0;
 	}
-
+	@Override
+	public void moveTo(int x, int y) {
+		this.x=x;
+		this.y=y;
+	}
+	
 	@Override
 	public void moveBy(int byX, int byY) {
 		this.x = this.x + byX;

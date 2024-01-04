@@ -41,6 +41,11 @@ public class Rectangle extends SurfaceShape {
 		}
 		return 0;
 	}
+	@Override
+	public void moveTo(int x, int y) {
+		upperLeftPoint.moveTo(x, y);
+		
+	}
 
 	@Override
 	public void moveBy(int byX, int byY) {

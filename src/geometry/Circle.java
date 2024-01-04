@@ -19,7 +19,7 @@ public class Circle extends SurfaceShape {
 	
 	public Circle(Point center, int radius, boolean selected) {
 		this(center, radius);
-		setSelected(selected);
+		//this.selected(selected);
 	}
 	
 	public Circle(Point center, int radius, boolean selected, Color color) {
@@ -27,10 +27,19 @@ public class Circle extends SurfaceShape {
 		setColor(color);
 	}
 	
+
+	public Circle(Point center, int r, Color color, Color innerColor) {
+		this(center, r);
+		setColor(color);
+		setInnerColor(innerColor);
+	}
+	
 	public Circle(Point center, int radius, boolean selected, Color color, Color innerColor) {
 		this(center, radius, selected, color);
 		setInnerColor(innerColor);
+		setSelected(selected);
 	}
+	
 	
 	@Override
 	public int compareTo(Object o) {
@@ -38,6 +47,10 @@ public class Circle extends SurfaceShape {
 			return (this.radius - ((Circle) o).radius);
 		}
 		return 0;
+	}
+	@Override
+	public void moveTo(int x, int y) {
+		center.moveTo(x, y);	
 	}
 	
 	@Override

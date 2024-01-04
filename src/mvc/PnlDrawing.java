@@ -1,4 +1,4 @@
-package drawing;
+package mvc;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -16,11 +16,6 @@ import geometry.Line;
 import geometry.Point;
 import geometry.Rectangle;
 import geometry.Shape;
-import drawing.DlgCircle;
-import drawing.DlgDonut;
-import drawing.DlgLine;
-import drawing.DlgRectangle;
-import drawing.FrmDrawing;
 
 public class PnlDrawing extends JPanel {
 

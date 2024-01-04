@@ -1,4 +1,4 @@
-package drawing;
+package mvc;
 
 import java.awt.BorderLayout;
 import java.awt.Color;

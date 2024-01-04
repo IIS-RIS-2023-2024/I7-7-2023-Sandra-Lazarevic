@@ -3,6 +3,7 @@ package geometry;
 import java.awt.Color;
 import java.awt.Graphics;
 
+
 public class Line extends Shape {
 
 	private Point startPoint;
@@ -33,6 +34,10 @@ public class Line extends Shape {
 			return (int) (this.length() - ((Line) o).length()); 
 		}
 		return 0;
+	}
+	@Override
+	public void moveTo(int x, int y) {
+				
 	}
 	
 	@Override

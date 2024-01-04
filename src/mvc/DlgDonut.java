@@ -1,4 +1,4 @@
-package drawing;
+package mvc;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -10,7 +10,7 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import geometry.Circle;
+import geometry.Donut;
 import geometry.Point;
 
 import java.awt.GridBagLayout;
@@ -21,34 +21,28 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
 
-public class DlgCircle extends JDialog {
+public class DlgDonut extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-
-	/**
-	 * @wbp.nonvisual location=-28,169
-	 */
 	private JTextField txtX;
 	private JTextField txtY;
 	private JTextField txtR;
-	private Circle circle;
-	private boolean confirm;
-	private JButton btnInnerColor;
-	private JButton btnOutlineColor;
+	private JTextField txtInnerR;
+	public boolean confirm;
+	public Donut donut;
+	public JButton btnInnerColor;
+	public JButton btnOutlineColor;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		try {
-			DlgCircle dialog = new DlgCircle();
+			DlgDonut dialog = new DlgDonut();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
-			dialog.setModal(true);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -57,12 +51,12 @@ public class DlgCircle extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public DlgCircle() {
-		setTitle("Add new or modify existing circle");
-		setResizable(false);
-		setModal(true);
+	public DlgDonut() {
+		setTitle("Add or modify donut");
 		setBackground(Color.WHITE);
-		
+		setModal(true);
+		setResizable(false);
+		setLocationRelativeTo(null);
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -74,7 +68,7 @@ public class DlgCircle extends JDialog {
 		gbl_contentPanel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		contentPanel.setLayout(gbl_contentPanel);
 		{
-			JLabel lblNewLabel = new JLabel("CENTER OF CIRCLE");
+			JLabel lblNewLabel = new JLabel("CENTER OF DONUT");
 			GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
 			gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
 			gbc_lblNewLabel.gridx = 2;
@@ -82,17 +76,15 @@ public class DlgCircle extends JDialog {
 			contentPanel.add(lblNewLabel, gbc_lblNewLabel);
 		}
 		{
-			JLabel lblNewLabel_2 = new JLabel("coordinate X");
-			GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
-			gbc_lblNewLabel_2.insets = new Insets(0, 0, 5, 5);
-			gbc_lblNewLabel_2.gridx = 2;
-			gbc_lblNewLabel_2.gridy = 1;
-			contentPanel.add(lblNewLabel_2, gbc_lblNewLabel_2);
+			JLabel lblNewLabel_1 = new JLabel("coordinate X");
+			GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
+			gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
+			gbc_lblNewLabel_1.gridx = 2;
+			gbc_lblNewLabel_1.gridy = 1;
+			contentPanel.add(lblNewLabel_1, gbc_lblNewLabel_1);
 		}
 		{
 			txtX = new JTextField();
-			txtX.setTransferHandler(null);
-			
 			GridBagConstraints gbc_txtX = new GridBagConstraints();
 			gbc_txtX.insets = new Insets(0, 0, 5, 0);
 			gbc_txtX.fill = GridBagConstraints.HORIZONTAL;
@@ -102,16 +94,15 @@ public class DlgCircle extends JDialog {
 			txtX.setColumns(10);
 		}
 		{
-			JLabel lblNewLabel_3 = new JLabel("coordinate Y");
-			GridBagConstraints gbc_lblNewLabel_3 = new GridBagConstraints();
-			gbc_lblNewLabel_3.insets = new Insets(0, 0, 5, 5);
-			gbc_lblNewLabel_3.gridx = 2;
-			gbc_lblNewLabel_3.gridy = 2;
-			contentPanel.add(lblNewLabel_3, gbc_lblNewLabel_3);
+			JLabel lblNewLabel_2 = new JLabel("coordinate Y");
+			GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
+			gbc_lblNewLabel_2.insets = new Insets(0, 0, 5, 5);
+			gbc_lblNewLabel_2.gridx = 2;
+			gbc_lblNewLabel_2.gridy = 2;
+			contentPanel.add(lblNewLabel_2, gbc_lblNewLabel_2);
 		}
 		{
 			txtY = new JTextField();
-			txtY.setTransferHandler(null); 
 			GridBagConstraints gbc_txtY = new GridBagConstraints();
 			gbc_txtY.insets = new Insets(0, 0, 5, 0);
 			gbc_txtY.fill = GridBagConstraints.HORIZONTAL;
@@ -121,7 +112,25 @@ public class DlgCircle extends JDialog {
 			txtY.setColumns(10);
 		}
 		{
-			JLabel lblNewLabel_4 = new JLabel("Radius");
+			JLabel lblNewLabel_3 = new JLabel("Radius");
+			GridBagConstraints gbc_lblNewLabel_3 = new GridBagConstraints();
+			gbc_lblNewLabel_3.insets = new Insets(0, 0, 5, 5);
+			gbc_lblNewLabel_3.gridx = 2;
+			gbc_lblNewLabel_3.gridy = 4;
+			contentPanel.add(lblNewLabel_3, gbc_lblNewLabel_3);
+		}
+		{
+			txtR = new JTextField();
+			GridBagConstraints gbc_txtR = new GridBagConstraints();
+			gbc_txtR.insets = new Insets(0, 0, 5, 0);
+			gbc_txtR.fill = GridBagConstraints.HORIZONTAL;
+			gbc_txtR.gridx = 4;
+			gbc_txtR.gridy = 4;
+			contentPanel.add(txtR, gbc_txtR);
+			txtR.setColumns(10);
+		}
+		{
+			JLabel lblNewLabel_4 = new JLabel("Inner radius");
 			GridBagConstraints gbc_lblNewLabel_4 = new GridBagConstraints();
 			gbc_lblNewLabel_4.insets = new Insets(0, 0, 5, 5);
 			gbc_lblNewLabel_4.gridx = 2;
@@ -129,17 +138,14 @@ public class DlgCircle extends JDialog {
 			contentPanel.add(lblNewLabel_4, gbc_lblNewLabel_4);
 		}
 		{
-			txtR = new JTextField();
-			txtR.setText("");
-			txtR.setTransferHandler(null);
-			
-			GridBagConstraints gbc_txtR = new GridBagConstraints();
-			gbc_txtR.insets = new Insets(0, 0, 5, 0);
-			gbc_txtR.fill = GridBagConstraints.HORIZONTAL;
-			gbc_txtR.gridx = 4;
-			gbc_txtR.gridy = 5;
-			contentPanel.add(txtR, gbc_txtR);
-			txtR.setColumns(10);
+			txtInnerR = new JTextField();
+			GridBagConstraints gbc_txtInnerR = new GridBagConstraints();
+			gbc_txtInnerR.insets = new Insets(0, 0, 5, 0);
+			gbc_txtInnerR.fill = GridBagConstraints.HORIZONTAL;
+			gbc_txtInnerR.gridx = 4;
+			gbc_txtInnerR.gridy = 5;
+			contentPanel.add(txtInnerR, gbc_txtInnerR);
+			txtInnerR.setColumns(10);
 		}
 
 		btnInnerColor = new JButton("Inner Color");
@@ -151,7 +157,7 @@ public class DlgCircle extends JDialog {
 
 			}
 		});
-		btnInnerColor.setBackground(Color.LIGHT_GRAY);
+		btnInnerColor.setBackground(Color.WHITE);
 		GridBagConstraints gbc_btnInnerColor = new GridBagConstraints();
 		gbc_btnInnerColor.insets = new Insets(0, 0, 5, 5);
 		gbc_btnInnerColor.gridx = 2;
@@ -168,8 +174,8 @@ public class DlgCircle extends JDialog {
 
 			}
 		});
-		btnOutlineColor.setBackground(Color.BLACK);
-		
+
+		btnOutlineColor.setBackground(Color.RED);
 		GridBagConstraints gbc_btnOutlineColor = new GridBagConstraints();
 		gbc_btnOutlineColor.insets = new Insets(0, 0, 0, 5);
 		gbc_btnOutlineColor.gridx = 2;
@@ -184,36 +190,46 @@ public class DlgCircle extends JDialog {
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+
 						if (txtX.getText().trim().isEmpty() || txtY.getText().trim().isEmpty()
-								|| txtR.getText().trim().isEmpty()) {
+								|| txtR.getText().trim().isEmpty() || txtInnerR.getText().trim().isEmpty()) {
 							setConfirm(false);
-							JOptionPane.showMessageDialog(null, "All fields are required!", "ERROR",
+							JOptionPane.showMessageDialog(null, "All values are required!", "Error",
 									JOptionPane.ERROR_MESSAGE);
+
 						} else {
 							try {
-								if (Integer.parseInt(txtR.getText().toString()) <= 0
+								if (Integer.parseInt(txtInnerR.getText().toString()) <= 0
+										|| Integer.parseInt(txtR.getText().toString()) <= 0
 										|| Integer.parseInt(txtX.getText().toString()) < 0
-										|| Integer.parseInt(txtY.getText().toString()) < 0) {
-									JOptionPane.showMessageDialog(null, "Insert values greather than 0!", "ERROR",
+										|| Integer.parseInt(txtY.getText().toString()) < 0)
+									JOptionPane.showMessageDialog(null, "Insert values greater then 0!", "Error",
 											JOptionPane.ERROR_MESSAGE);
-								} else {
-									circle = new Circle(
+								else {
+									if (Integer.parseInt(txtInnerR.getText().toString()) < Integer
+											.parseInt(txtR.getText().toString())) {
+										donut = new Donut(
+												new Point(Integer.parseInt(txtX.getText().toString()),
+														Integer.parseInt(txtY.getText().toString())),
+												Integer.parseInt(txtR.getText().toString()),
+												Integer.parseInt(txtInnerR.getText().toString()), false,
+												btnOutlineColor.getBackground(), btnInnerColor.getBackground());
 
-											new Point(Integer.parseInt(txtX.getText().toString()),
-													Integer.parseInt(txtY.getText().toString())),
-											Integer.parseInt(txtR.getText().toString()), false,
-											btnOutlineColor.getBackground(), btnInnerColor.getBackground());
-								
-									setConfirm(true);
-									setVisible(false);
+										setConfirm(true);
+										setVisible(false);
+									} else {
+										JOptionPane.showMessageDialog(null,
+												"Please insert inner radius less than outher radius!", "Error",
+												JOptionPane.ERROR_MESSAGE);
+									}
+
 								}
 							} catch (Exception e2) {
-								JOptionPane.showMessageDialog(null, "Enter numbers only", "Error",
+								JOptionPane.showMessageDialog(null, "Enter numbers only!", "Error",
 										JOptionPane.ERROR_MESSAGE);
 							}
 
 						}
-
 					}
 				});
 				okButton.setActionCommand("OK");
@@ -225,7 +241,6 @@ public class DlgCircle extends JDialog {
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						dispose();
-
 					}
 				});
 				cancelButton.setActionCommand("Cancel");
@@ -258,12 +273,12 @@ public class DlgCircle extends JDialog {
 		this.txtR = txtR;
 	}
 
-	public Circle getCircle() {
-		return circle;
+	public JTextField getTxtInnerR() {
+		return txtInnerR;
 	}
 
-	public void setCircle(Circle circle) {
-		this.circle = circle;
+	public void setTxtInnerR(JTextField txtInnerR) {
+		this.txtInnerR = txtInnerR;
 	}
 
 	public boolean isConfirm() {
@@ -272,6 +287,14 @@ public class DlgCircle extends JDialog {
 
 	public void setConfirm(boolean confirm) {
 		this.confirm = confirm;
+	}
+
+	public Donut getDonut() {
+		return donut;
+	}
+
+	public void setDonut(Donut donut) {
+		this.donut = donut;
 	}
 
 	public JButton getBtnInnerColor() {
