@@ -3,7 +3,7 @@ package adapter;
 import java.awt.Color;
 import java.awt.Graphics;
 import hexagon.Hexagon;
-import geometry.Circle;
+//import geometry.Circle;
 import geometry.Point;
 import geometry.SurfaceShape;
 

@@ -23,7 +23,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class DlgPoint extends JDialog {
-
+	
+	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtX;
 	private JTextField txtY;

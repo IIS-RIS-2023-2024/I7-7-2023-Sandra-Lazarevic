@@ -16,20 +16,21 @@ import geometry.Point;
 import geometry.Rectangle;
 import geometry.Shape;
 
-import javax.swing.BoxLayout;
+//import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 
-import java.awt.FlowLayout;
-import javax.swing.JToolBar;
+//import java.awt.FlowLayout;
+//import javax.swing.JToolBar;
 import javax.swing.JToggleButton;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
-import javax.swing.SwingConstants;
+//import javax.swing.SwingConstants;
 
 public class FrmDrawing extends JFrame {
-
+	
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private PnlDrawing pnlDrawing = new PnlDrawing(this);
 

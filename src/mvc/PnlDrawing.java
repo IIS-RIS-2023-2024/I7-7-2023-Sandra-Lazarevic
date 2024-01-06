@@ -10,15 +10,16 @@ import java.util.Iterator;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import geometry.Circle;
-import geometry.Donut;
+//import geometry.Circle;
+//import geometry.Donut;
 import geometry.Line;
 import geometry.Point;
-import geometry.Rectangle;
+//import geometry.Rectangle;
 import geometry.Shape;
 
 public class PnlDrawing extends JPanel {
-
+	
+	private static final long serialVersionUID = 1L;
 	private FrmDrawing frame;
 	private ArrayList<Shape> shapes = new ArrayList<Shape>();
 	private Point startPoint;

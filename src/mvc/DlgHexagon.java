@@ -9,7 +9,7 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import adapter.HexagonAdapter;
+//import adapter.HexagonAdapter;
 
 import java.awt.GridBagLayout;
 import java.awt.Color;
@@ -21,15 +21,16 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class DlgHexagon extends JDialog {
-
+	
+	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtX;
 	private JTextField txtY;
 	private JTextField txtR;
-	private HexagonAdapter hexagon;
+	//private HexagonAdapter hexagon;
 	private boolean isOk;
-	private Color borderColor; 
-	private Color innerColor; 
+	//private Color borderColor; 
+	//private Color innerColor; 
 	private JButton btnBorderColor;
 	private JButton btnInnerColor;
 

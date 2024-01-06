@@ -9,6 +9,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class Drawing extends JPanel {
+	
+	private static final long serialVersionUID = 1L;
 	public Drawing() {
 		setBackground(Color.WHITE);
 	}
@@ -29,13 +31,13 @@ public class Drawing extends JPanel {
 		Point p = new Point(50, 65, false, Color.RED);
 		// p.draw(g);
 		
-		Point p1 = new Point(70, 80, true, Color.BLACK);
+		//Point p1 = new Point(70, 80, true, Color.BLACK);
 		// p1.draw(g);
 		
 		Line l = new Line(new Point(110, 110), new Point(200, 200), false, Color.RED);
 		// l.draw(g);
 		
-		Line l1 = new Line(new Point(240, 240), new Point(340, 340), true, Color.BLACK);
+		//Line l1 = new Line(new Point(240, 240), new Point(340, 340), true, Color.BLACK);
 		// l1.draw(g);
 		
 		Rectangle r = new Rectangle(new Point(360, 360), 100, 150, true, Color.BLACK, Color.YELLOW);

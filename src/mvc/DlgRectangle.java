@@ -14,7 +14,7 @@ import geometry.Point;
 import geometry.Rectangle;
 
 import java.awt.GridBagLayout;
-import javax.swing.BoxLayout;
+//import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
@@ -25,7 +25,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class DlgRectangle extends JDialog {
-
+	
+	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtX;
 	private JTextField txtY;
