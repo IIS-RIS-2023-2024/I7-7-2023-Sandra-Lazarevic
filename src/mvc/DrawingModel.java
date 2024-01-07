@@ -3,6 +3,8 @@ package mvc;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
+import command.Command;
 import geometry.Point;
 import geometry.Shape;
 
@@ -13,6 +15,9 @@ public class DrawingModel implements Serializable {
 	private ArrayList<Shape> selectedShapes = new ArrayList<Shape>();
 	public Point startPoint;
 	public Shape selectedShape;
+	private Stack<Command> undoStack = new Stack<>();
+	private Stack<Command> redoStack = new Stack<>();
+	public int undoCounter = 0;
 
 	public void remove(Shape toBeRemoved)
 	{
@@ -56,6 +61,45 @@ public class DrawingModel implements Serializable {
 
 	public void setShapes(List<Shape> shapes) {
 		this.shapes = shapes;
+	}
+	public Stack<Command> getUndoStack() {
+		return undoStack;
+	}
+	public void setUndoStack(Stack<Command> undoStack) {
+		this.undoStack = undoStack;
+	}
+	public Stack<Command> getRedoStack() {
+		return redoStack;
+	}
+	public void setRedoStack(Stack<Command> redoStack) {
+		this.redoStack = redoStack;
+	}
+	
+	public void pushToUndoStack(Command toBePushed) {
+		undoCounter++;
+		this.undoStack.push(toBePushed);
+	
+	}
+	
+	public void removeFromUndoStack() {
+		undoCounter--;
+		if(undoStack.peek()!=null) {
+			this.undoStack.pop().unexecute();
+		}
+		
+	}
+	
+	public void pushToRedoStack(Command toBePushed) {
+		System.out.println("pushToRedoStack: " + this.getRedoStack());
+		this.redoStack.push(toBePushed);
+	
+	}
+	
+	public void removeFromRedoStack() {
+		if(redoStack.peek()!=null) {
+			this.redoStack.pop().execute();
+		}
+		
 	}
 	
 	public void clear() {
