@@ -24,6 +24,11 @@ public class Line extends Shape {
 		setSelected(selected);
 	}
 	
+	public Line(Point startPoint, Point endPoint, Color color) {
+		this(startPoint, endPoint);
+		setColor(color);
+	}
+	
 	public Line(Point startPoint, Point endPoint, boolean selected, Color color) {
 		this(startPoint, endPoint, selected);
 		setColor(color);
@@ -109,6 +114,24 @@ public class Line extends Shape {
 	
 	public String toString() {
 		return startPoint + "-->" + endPoint; 
+	}
+	
+	public Line clone() {
+		Line line = new Line(new Point(), new Point(), getColor());
+		//line.setStartPoint(this.startPoint);
+		//line.setEndPoint(this.endPoint);
+		line.getStartPoint().setX(this.getStartPoint().getX());
+		line.getStartPoint().setY(this.getStartPoint().getY());
+		line.getStartPoint().setColor(this.getStartPoint().getColor());
+
+		line.getEndPoint().setX(this.getEndPoint().getX());
+		line.getEndPoint().setY(this.getEndPoint().getY());
+		line.getEndPoint().setColor(this.getEndPoint().getColor());
+
+		line.setColor(this.getColor());
+
+		return line;
+
 	}
 	
 	

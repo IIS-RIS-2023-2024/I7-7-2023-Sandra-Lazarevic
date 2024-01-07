@@ -25,6 +25,13 @@ public class Rectangle extends SurfaceShape {
 		setSelected(selected);
 	}
 	
+	public Rectangle(Point upperLeft, int width, int height, Color color, Color innerColor) {
+		this(upperLeft,width,height);
+		setColor(color);
+		setInnerColor(innerColor);
+	}
+	
+	
 	public Rectangle(Point upperLeftPoint, int height, int width, boolean selected, Color color) {
 		this(upperLeftPoint, height, width, selected);
 		setColor(color);
@@ -139,6 +146,19 @@ public class Rectangle extends SurfaceShape {
 	public String toString() {
 		return "Upper left point=" + upperLeftPoint + ", width=" + width + ", height=" + height;
 	}
+	
+	@Override
+	public Rectangle clone() {
+		Rectangle rectangle = new Rectangle(new Point(), height, width, getColor(), getInnerColor());
+		rectangle.getUpperLeftPoint().setX(this.getUpperLeftPoint().getX());
+		rectangle.getUpperLeftPoint().setY(this.getUpperLeftPoint().getY());
+		rectangle.setHeight(this.getHeight());
+		rectangle.setWidth(this.getWidth());
+		rectangle.setColor(this.getColor());
+		rectangle.setInnerColor(this.getInnerColor());
+		return rectangle;
+	}
+	
 
 	
 }

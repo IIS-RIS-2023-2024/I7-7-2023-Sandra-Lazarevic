@@ -104,5 +104,14 @@ public class Point extends Shape {
 	public String toString() {
 		return "(" + x + ", " + y + ")";
 	}
+	
+	@Override
+	public Point clone() {
+			Point point = new Point();
+			point.setX(this.getX()); 
+			point.setY(this.getY());
+			point.setColor(this.getColor());
+			return point;
+		}
 
 }

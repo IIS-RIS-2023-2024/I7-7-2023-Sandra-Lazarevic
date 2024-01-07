@@ -131,5 +131,21 @@ public class Circle extends SurfaceShape {
 	public String toString() {
 		return "Center=" + center + ", radius=" + radius;
 	}
+	
+	@Override
+	public Circle clone() {
+		Circle circle = new Circle(new Point(), radius, getColor(), getInnerColor());
+		circle.getCenter().setX(this.getCenter().getX()); 
+		circle.getCenter().setY(this.getCenter().getY()); 
+		try {
+			circle.setRadius(this.getRadius());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		circle.setInnerColor(this.getInnerColor());
+		circle.setColor(this.getColor());
+		return circle;
+	}
 
 }
