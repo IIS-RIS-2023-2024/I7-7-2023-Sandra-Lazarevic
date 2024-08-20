@@ -8,69 +8,73 @@ import adapter.HexagonAdapter;
 
 public class HexagonAdapterTest {
 
-    private HexagonAdapter hexagon;
+    private HexagonAdapter hexagonTest;
 
     @BeforeEach
     public void setUp() {
-        hexagon = new HexagonAdapter(10, 20, 30, Color.BLACK, Color.WHITE);
+    	hexagonTest = new HexagonAdapter(10, 20, 30, Color.BLACK, Color.WHITE);
     }
 
     @Test
     public void testConstructor() {
-        assertEquals(10, hexagon.getHexagon().getX());
-        assertEquals(20, hexagon.getHexagon().getY());
-        assertEquals(30, hexagon.getHexagon().getR());
-        assertEquals(Color.BLACK, hexagon.getHexagon().getBorderColor());
-        assertEquals(Color.WHITE, hexagon.getHexagon().getAreaColor());
+        assertEquals(10, hexagonTest.getHexagon().getX());
+        assertEquals(20, hexagonTest.getHexagon().getY());
+        assertEquals(30, hexagonTest.getHexagon().getR());
+        assertEquals(Color.BLACK, hexagonTest.getHexagon().getBorderColor());
+        assertEquals(Color.WHITE, hexagonTest.getHexagon().getAreaColor());
     }
 
     @Test
     public void testMoveTo() {
-        hexagon.moveTo(15, 25);
-        assertEquals(15, hexagon.getHexagon().getX());
-        assertEquals(25, hexagon.getHexagon().getY());
+    	hexagonTest.moveTo(15, 25);
+        assertEquals(15, hexagonTest.getHexagon().getX());
+        assertEquals(25, hexagonTest.getHexagon().getY());
     }
 
     @Test
     public void testMoveBy() {
-        hexagon.moveBy(5, 10);
-        assertEquals(15, hexagon.getHexagon().getX());
-        assertEquals(30, hexagon.getHexagon().getY());
+    	hexagonTest.moveBy(5, 10);
+        assertEquals(15, hexagonTest.getHexagon().getX());
+        assertEquals(30, hexagonTest.getHexagon().getY());
     }
 
     @Test
     public void testArea() {
         double expectedArea = (3 * Math.sqrt(3) * Math.pow(30, 2)) / 2;
-        assertEquals(expectedArea, hexagon.area(), 0.01);
+        assertEquals(expectedArea, hexagonTest.area(), 0.01);
     }
 
     @Test
     public void testContains() {
-        assertTrue(hexagon.contains(10, 20));
-        assertFalse(hexagon.contains(100, 200));
+        assertTrue(hexagonTest.contains(10, 20));
+        assertFalse(hexagonTest.contains(100, 200));
     }
 
     @Test
     public void testEquals() {
         HexagonAdapter anotherHexagon = new HexagonAdapter(10, 20, 30, Color.BLACK, Color.WHITE);
-        assertTrue(hexagon.equals(anotherHexagon));
+        assertTrue(hexagonTest.equals(anotherHexagon));
+        
+        HexagonAdapter anotherHexagon3 = new HexagonAdapter(20, 20, 30, Color.BLACK, Color.WHITE);
+        assertFalse(hexagonTest.equals(anotherHexagon3));
     }
 
     @Test
     public void testToString() {
         String expectedString = "Hexagon:10,20,30,0,0,0,255,255,255,false";
-        assertEquals(expectedString, hexagon.toString());
+        assertEquals(expectedString, hexagonTest.toString());
     }
 
     @Test
     public void testSetSelected() {
-        hexagon.setSelected(true);
-        assertTrue(hexagon.isSelected());
+    	hexagonTest.setSelected(true);
+        assertTrue(hexagonTest.isSelected());
     }
 
     @Test
     public void testClone() {
-        HexagonAdapter clonedHexagon = hexagon.clone();
-        assertEquals(hexagon, clonedHexagon);
+        HexagonAdapter clonedHexagon = hexagonTest.clone();
+        assertEquals(hexagonTest, clonedHexagon);
+        assertNotSame(hexagonTest, clonedHexagon);
     }
 }
