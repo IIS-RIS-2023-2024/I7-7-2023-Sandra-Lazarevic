@@ -9,9 +9,7 @@ public class Circle extends SurfaceShape {
 	private Point center;
 	private int radius;
 	
-	public Circle() {
-
-	}
+	public Circle() {}
 	
 	public Circle(Point center, int radius) {
 		this.center = center;
@@ -28,7 +26,6 @@ public class Circle extends SurfaceShape {
 		setColor(color);
 	}
 	
-
 	public Circle(Point center, int r, Color color, Color innerColor) {
 		this(center, r);
 		setColor(color);
@@ -40,8 +37,7 @@ public class Circle extends SurfaceShape {
 		setInnerColor(innerColor);
 		setSelected(selected);
 	}
-	
-	
+		
 	@Override
 	public int compareTo(Object o) {
 		if (o instanceof Circle) {
@@ -49,6 +45,7 @@ public class Circle extends SurfaceShape {
 		}
 		return 0;
 	}
+	
 	@Override
 	public void moveTo(int x, int y) {
 		center.moveTo(x, y);	
@@ -61,11 +58,11 @@ public class Circle extends SurfaceShape {
 	
 	@Override
 	public void fill(Graphics g) {
-		g.setColor(getInnerColor());
-		g.fillOval(this.center.getX() - radius	 + 1, this.center.getY() - radius + 1, radius*2 - 2, radius*2 - 2);
+	    g.setColor(getInnerColor());
+	    g.fillOval(this.center.getX() - radius, this.center.getY() - radius, radius * 2, radius * 2);
 	}
 
-	@Override
+	/*@Override
 	public void draw(Graphics g) {
 		g.setColor(getColor());
 		g.drawOval(this.center.getX() - radius	, this.center.getY() - radius, radius*2, radius*2); 
@@ -79,13 +76,35 @@ public class Circle extends SurfaceShape {
 			g.drawRect(this.center.getX() - 3, this.center.getY() + radius - 3, 6, 6);
 		}
 		
-	}
+	}*/
+	
+	@Override
+    public void draw(Graphics g) {
+        g.setColor(getColor());
+        g.drawOval(center.getX() - radius, center.getY() - radius, radius * 2, radius * 2);
+        fill(g); 
+        if (isSelected()) {
+            g.setColor(Color.BLUE);
+            drawSelection(g);
+        }
+    }
+	//pojednostavljena metoda
+    private void drawSelection(Graphics g) {
+        int x = center.getX();
+        int y = center.getY();
+        int size = 6;
+        g.drawRect(x - size / 2, y - size / 2, size, size);
+        g.drawRect(x - radius - size / 2, y - size / 2, size, size);
+        g.drawRect(x + radius - size / 2, y - size / 2, size, size);
+        g.drawRect(x - size / 2, y - radius - size / 2, size, size);
+        g.drawRect(x - size / 2, y + radius - size / 2, size, size);
+    }
 	
 	public double area() {
 		return radius * radius * Math.PI;
 	}
 	
-	public boolean equals(Object obj) {
+	/*public boolean equals(Object obj) {
 		if (obj instanceof Circle) {
 			Circle prosledjeni = (Circle) obj;
 			if (this.center.equals(prosledjeni.getCenter()) &&
@@ -97,7 +116,15 @@ public class Circle extends SurfaceShape {
 		} else {
 			return false;
 		}
-	}
+	}*/
+	
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Circle other = (Circle) obj;
+        return radius == other.radius && center.equals(other.center);
+    }
 	
 	public boolean contains(int x, int y) {
 		return center.distance(x, y) <= radius;
@@ -111,9 +138,12 @@ public class Circle extends SurfaceShape {
 		return center;
 	}
 
-	public void setCenter(Point center) {
+	/*public void setCenter(Point center) {
 		this.center = center;
-	}
+	}*/
+    public void setCenter(Point center) {
+        this.center = center != null ? center : new Point();
+    }
 
 	public int getRadius() {
 		return radius;
@@ -132,7 +162,7 @@ public class Circle extends SurfaceShape {
 		return "Center=" + center + ", radius=" + radius;
 	}
 	
-	@Override
+	/*@Override
 	public Circle clone() {
 		Circle circle = new Circle(new Point(), radius, getColor(), getInnerColor());
 		circle.getCenter().setX(this.getCenter().getX()); 
@@ -146,6 +176,11 @@ public class Circle extends SurfaceShape {
 		circle.setInnerColor(this.getInnerColor());
 		circle.setColor(this.getColor());
 		return circle;
+	}*/
+	
+	@Override
+	public Circle clone() {
+	    return new Circle(new Point(center.getX(), center.getY()), radius, getColor(), getInnerColor());
 	}
 
 }

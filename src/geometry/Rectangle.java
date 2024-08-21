@@ -10,9 +10,7 @@ public class Rectangle extends SurfaceShape {
 	private int height;
 	private int width;
 	
-	public Rectangle() {
-
-	}
+	public Rectangle() {}
 	
 	public Rectangle(Point upperLeftPoint, int height, int width) {
 		this.upperLeftPoint = upperLeftPoint;
@@ -30,7 +28,6 @@ public class Rectangle extends SurfaceShape {
 		setColor(color);
 		setInnerColor(innerColor);
 	}
-	
 	
 	public Rectangle(Point upperLeftPoint, int height, int width, boolean selected, Color color) {
 		this(upperLeftPoint, height, width, selected);
@@ -52,7 +49,6 @@ public class Rectangle extends SurfaceShape {
 	@Override
 	public void moveTo(int x, int y) {
 		upperLeftPoint.moveTo(x, y);
-		
 	}
 
 	@Override
@@ -60,7 +56,7 @@ public class Rectangle extends SurfaceShape {
 		this.upperLeftPoint.moveBy(byX, byY);
 	}
 
-	@Override
+	/*@Override
 	public void draw(Graphics g) {
 		g.setColor(getColor());
 		g.drawRect(this.upperLeftPoint.getX(), this.upperLeftPoint.getY(), this.width, this.height);
@@ -74,9 +70,34 @@ public class Rectangle extends SurfaceShape {
 			g.drawRect(getUpperLeftPoint().getX() - 3, getUpperLeftPoint().getY() + getHeight() - 3, 6, 6);
 			g.drawRect(getUpperLeftPoint().getX() + getWidth() - 3, getUpperLeftPoint().getY() + getHeight() - 3, 6, 6);
 		}
-
-	}
+	}*/
 	
+	@Override
+    public void draw(Graphics g) {
+        drawRectangle(g);
+        fill(g);
+        if (isSelected()) {
+        	drawSelectionRect(g);
+        }
+    }
+
+    private void drawRectangle(Graphics g) {
+        g.setColor(getColor());
+        g.drawRect(upperLeftPoint.getX(), upperLeftPoint.getY(), width, height);
+    }
+
+    private void drawSelectionRect(Graphics g) {
+        g.setColor(Color.BLUE);
+        drawMarker(g, upperLeftPoint.getX(), upperLeftPoint.getY());
+        drawMarker(g, upperLeftPoint.getX() + width, upperLeftPoint.getY());
+        drawMarker(g, upperLeftPoint.getX(), upperLeftPoint.getY() + height);
+        drawMarker(g, upperLeftPoint.getX() + width, upperLeftPoint.getY() + height);
+    }
+
+    // Draw a single marker at a specified position
+    private void drawMarker(Graphics g, int x, int y) {
+        g.drawRect(x - 3, y - 3, 6, 6);
+    }
 	@Override
 	public void fill(Graphics g) {
 		g.setColor(getInnerColor());
@@ -87,42 +108,26 @@ public class Rectangle extends SurfaceShape {
 		return height * width;
 	}
 	
-	public boolean equals(Object obj) {
-		if (obj instanceof Rectangle) {
-			Rectangle prosledjeni = (Rectangle) obj;
-			if (this.upperLeftPoint.equals(prosledjeni.getUpperLeftPoint()) && 
-					this.width == prosledjeni.getWidth() && 
-					this.height == prosledjeni.getHeight()) {
-				return true;
-			} else {
-				return false;
-			}
-		} else {
-			return false;
-		}
-	}
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (!(obj instanceof Rectangle)) return false;
+        Rectangle other = (Rectangle) obj;
+        return upperLeftPoint.equals(other.upperLeftPoint) &&
+               height == other.height &&
+               width == other.width;
+    }
+    
+    public boolean contains(int x, int y) {
+        return x >= upperLeftPoint.getX() &&
+               y >= upperLeftPoint.getY() &&
+               x <= upperLeftPoint.getX() + width &&
+               y <= upperLeftPoint.getY() + height;
+    }
 	
-	public boolean contains(int x, int y) {
-		if (this.getUpperLeftPoint().getX() <= x &&
-				this.getUpperLeftPoint().getY() <= y &&
-				x <= this.getUpperLeftPoint().getX() + width &&
-				y <= this.getUpperLeftPoint().getY() + height) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-	
-	public boolean contains(Point p) {
-		if (this.getUpperLeftPoint().getX() <= p.getX() &&
-				this.getUpperLeftPoint().getY() <= p.getY() &&
-				p.getX() <= this.getUpperLeftPoint().getX() + width &&
-				p.getY() <= this.getUpperLeftPoint().getY() + height) {
-			return true;
-		} else {
-			return false;
-		}
-	}
+    public boolean contains(Point p) {
+        return contains(p.getX(), p.getY());
+    }
 	
 	public Point getUpperLeftPoint() {
 		return upperLeftPoint;
@@ -147,18 +152,9 @@ public class Rectangle extends SurfaceShape {
 		return "Upper left point=" + upperLeftPoint + ", width=" + width + ", height=" + height;
 	}
 	
-	@Override
-	public Rectangle clone() {
-		Rectangle rectangle = new Rectangle(new Point(), height, width, getColor(), getInnerColor());
-		rectangle.getUpperLeftPoint().setX(this.getUpperLeftPoint().getX());
-		rectangle.getUpperLeftPoint().setY(this.getUpperLeftPoint().getY());
-		rectangle.setHeight(this.getHeight());
-		rectangle.setWidth(this.getWidth());
-		rectangle.setColor(this.getColor());
-		rectangle.setInnerColor(this.getInnerColor());
-		return rectangle;
-	}
-	
-
+    @Override
+    public Rectangle clone() {
+        return new Rectangle(new Point(upperLeftPoint.getX(), upperLeftPoint.getY()), height, width, isSelected(), getColor(), getInnerColor());
+    }
 	
 }

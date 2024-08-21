@@ -1,4 +1,4 @@
-/*package geometry;
+package geometry;
 
 import java.awt.Polygon;
 import java.awt.Graphics;
@@ -15,9 +15,7 @@ public class Hexagon implements Serializable
     private Color borderColor;
     private Color areaColor;
     
-    public Hexagon() {
-    	
-    }
+    public Hexagon() {}
     
     public Hexagon(final int x, final int y, final int r) {
         this.x = x;
@@ -35,34 +33,48 @@ public class Hexagon implements Serializable
     	this(x,y,r,borderColor,areaColor);
     	this.selected=selected;
     }
-
+    public Hexagon(int x, int y, int radius, Color borderColor, Color areaColor, boolean selected) {
+        this.x = x;
+        this.y = y;
+        this.r = radius;
+        this.borderColor = borderColor;
+        this.areaColor = areaColor;
+        this.selected = selected;
+    }
 	public void paint(final Graphics g) {
-        final int[] xovi = new int[6];
-        final int[] yoni = new int[6];
-        final Polygon plg = new Polygon();
-        for (int i = 0; i < 6; ++i) {
-            xovi[i] = (int)(this.x + this.r * Math.cos(i * 2 * 3.141592653589793 / 6.0));
-            yoni[i] = (int)(this.y + this.r * Math.sin(i * 2 * 3.141592653589793 / 6.0));
-            plg.addPoint(xovi[i], yoni[i]);
+		Polygon hexagon = createHexagon();
+        g.setColor(areaColor);
+        g.fillPolygon(hexagon);
+        g.setColor(borderColor);
+        g.drawPolygon(hexagon);
+        if (selected) {
+            drawSelectionRect(g, hexagon);
         }
-        g.setColor(this.areaColor);
-        g.fillPolygon(plg);
-        g.setColor(this.borderColor);
-        g.drawPolygon(plg);
-        if (this.selected) {
-            g.setColor(Color.BLUE);
-            for (int i = 0; i < 6; ++i) {
-                g.drawRect(xovi[i] - 2, yoni[i] - 2, 5, 5);
-            }
+    }
+	
+	public Polygon createHexagon() {
+	    final int[] xPoints = new int[6];
+	    final int[] yPoints = new int[6];
+	    final Polygon plg = new Polygon();
+	    for (int i = 0; i < 6; ++i) {
+	        xPoints[i] = (int)(this.x + this.r * Math.cos(i * 2 * Math.PI / 6.0));
+	        yPoints[i] = (int)(this.y + this.r * Math.sin(i * 2 * Math.PI / 6.0));
+	        plg.addPoint(xPoints[i], yPoints[i]);
+	    }
+	    return plg;
+	}
+
+    
+    private void drawSelectionRect(Graphics g, Polygon hexagon) {
+        g.setColor(Color.BLUE);
+        for (int i = 0; i < 6; i++) {
+            g.drawRect(hexagon.xpoints[i] - 2, hexagon.ypoints[i] - 2, 5, 5);
         }
     }
     
-    public boolean doesContain(final int x, final int y) {
-        final Polygon plg = new Polygon();
-        for (int i = 0; i < 6; ++i) {
-            plg.addPoint((int)(this.x + this.r * Math.cos(i * 2 * 3.141592653589793 / 6.0)), (int)(this.y + this.r * Math.sin(i * 2 * 3.141592653589793 / 6.0)));
-        }
-        return plg.contains(x, y);
+    public boolean doesContain(int x, int y) {
+        Polygon polygon = createHexagon();
+        return polygon.contains(x, y);
     }
     
     public int getX() {
@@ -112,6 +124,5 @@ public class Hexagon implements Serializable
     public void setSelected(final boolean selected) {
         this.selected = selected;
     }
-    
-    
-}*/
+     
+}

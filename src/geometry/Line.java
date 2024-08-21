@@ -41,10 +41,6 @@ public class Line extends Shape {
 		}
 		return 0;
 	}
-	@Override
-	public void moveTo(int x, int y) {
-				
-	}
 	
 	@Override
 	public void moveBy(int byX, int byY) {
@@ -52,11 +48,10 @@ public class Line extends Shape {
 		this.endPoint.moveBy(byX, byY);
 	}
 	
-	public Point middleOfLine() {
+	public Point getMiddlePointOfLine() {
 		int middleByX = (this.startPoint.getX() + this.endPoint.getX()) / 2;
 		int middleByY = (this.startPoint.getY() + this.endPoint.getY()) / 2;
-		Point p = new Point(middleByX, middleByY);
-		return p;
+		return new Point(middleByX, middleByY);
 	}
 	
 	@Override
@@ -65,31 +60,28 @@ public class Line extends Shape {
 		g.drawLine(this.startPoint.getX(), this.startPoint.getY(), this.endPoint.getX(), this.endPoint.getY());
 		
 		if (isSelected()) {
-			g.setColor(Color.BLUE);
-			g.drawRect(this.startPoint.getX() - 3, this.startPoint.getY() - 3, 6, 6);
-			g.drawRect(this.endPoint.getX() - 3, this.endPoint.getY() - 3, 6, 6);
-			g.drawRect(middleOfLine().getX() - 3, middleOfLine().getY() - 3, 6, 6);
+            g.setColor(Color.BLUE);
+			drawSelectionRect(g, startPoint);
+            drawSelectionRect(g, endPoint);
+            drawSelectionRect(g, getMiddlePointOfLine());
 		}
 		
 	}
+	
+	private void drawSelectionRect(Graphics g, Point p) {
+        g.drawRect(p.getX() - 3, p.getY() - 3, 6, 6);
+    }
 	
 	public double length() {
 		return startPoint.distance(endPoint.getX(), endPoint.getY());
 	}
 	
-	public boolean equals(Object obj) {
-		if (obj instanceof Line) {
-			Line pomocna = (Line) obj;
-			if (this.startPoint.equals(pomocna.getStartPoint()) &&
-					this.endPoint.equals(pomocna.getEndPoint())) {
-				return true;
-			} else {
-				return false;
-			}
-		} else {
-			return false;
-		}
-	}
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Line)) return false;
+        Line other = (Line) obj;
+        return startPoint.equals(other.getStartPoint()) && endPoint.equals(other.getEndPoint());
+    }
 	
 	public boolean contains(int x, int y) {
 		if ((startPoint.distance(x, y) + endPoint.distance(x, y)) - length() <= 0.05) {
@@ -116,23 +108,14 @@ public class Line extends Shape {
 		return startPoint + "-->" + endPoint; 
 	}
 	
-	public Line clone() {
-		Line line = new Line(new Point(), new Point(), getColor());
-		//line.setStartPoint(this.startPoint);
-		//line.setEndPoint(this.endPoint);
-		line.getStartPoint().setX(this.getStartPoint().getX());
-		line.getStartPoint().setY(this.getStartPoint().getY());
-		line.getStartPoint().setColor(this.getStartPoint().getColor());
+    @Override
+    public Line clone() {
+        return new Line(new Point(startPoint.getX(),startPoint.getY()), new Point(endPoint.getX(),endPoint.getY()), isSelected(), getColor());
+    }
 
-		line.getEndPoint().setX(this.getEndPoint().getX());
-		line.getEndPoint().setY(this.getEndPoint().getY());
-		line.getEndPoint().setColor(this.getEndPoint().getColor());
-
-		line.setColor(this.getColor());
-
-		return line;
-
+	@Override
+	public void moveTo(int x, int y) {
+		// TODO Auto-generated method stub
 	}
-	
 	
 }

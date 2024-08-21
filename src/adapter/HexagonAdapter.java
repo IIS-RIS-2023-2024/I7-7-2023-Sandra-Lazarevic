@@ -49,7 +49,6 @@ public class HexagonAdapter extends SurfaceShape{
 	@Override
 	public void draw(Graphics g) {
 		hexagon.paint(g);
-		
 	}
 
 	public Hexagon getHexagon() {
@@ -86,7 +85,6 @@ public class HexagonAdapter extends SurfaceShape{
 	    hexagon.setY(hexagon.getY() + byY);
 	}
 
-
 	/*@Override
 	public String toString() {
 		return "Hexagon:" + hexagon.getX() + "," + hexagon.getY() + "," + hexagon.getR() + "," + hexagon.getBorderColor().getRed()+"," + hexagon.getBorderColor().getGreen()+","+hexagon.getBorderColor().getBlue()  + "," + hexagon.getAreaColor().getRed() + "," + hexagon.getAreaColor().getGreen() + "," + hexagon.getAreaColor().getBlue()+","+isSelected();
@@ -122,7 +120,6 @@ public class HexagonAdapter extends SurfaceShape{
     
     public boolean isSelected() {
     	return this.selected;
-       //return hexagon.isSelected();
     }
     
     public void setSelected(final boolean selected) {
@@ -131,7 +128,6 @@ public class HexagonAdapter extends SurfaceShape{
     }
     
     public HexagonAdapter clone() {
-
 		HexagonAdapter hexagonAdapter = new HexagonAdapter(-1,-1,-1,Color.black, Color.black);
 		
 		hexagonAdapter.getHexagon().setX(this.getHexagon().getX());
@@ -145,7 +141,6 @@ public class HexagonAdapter extends SurfaceShape{
 	@Override
 	public void fill(Graphics g) {
 		// TODO Auto-generated method stub
-		
 	}
     
 

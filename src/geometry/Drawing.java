@@ -11,6 +11,9 @@ import javax.swing.JPanel;
 public class Drawing extends JPanel {
 	
 	private static final long serialVersionUID = 1L;
+    private ArrayList<Shape> shapes;
+
+	
 	public Drawing() {
 		setBackground(Color.WHITE);
 	}
@@ -98,5 +101,8 @@ public class Drawing extends JPanel {
 		}
 		
 	}
+    public ArrayList<Shape> getShapes() {
+        return shapes;
+    }
 
 }

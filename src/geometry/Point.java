@@ -9,9 +9,7 @@ public class Point extends Shape {
 	private int x;
 	private int y;
 	
-	public Point() {
-		
-	}
+	public Point() {}
 	
 	public Point(int x, int y) {
 		this.x = x;
@@ -68,7 +66,7 @@ public class Point extends Shape {
 		return d;
 	}
 	
-	public boolean equals(Object obj) {
+	/*public boolean equals(Object obj) {
 		if (obj instanceof Point) {
 			Point prosledjena = (Point) obj;
 			if (this.x == prosledjena.getX() && this.y == prosledjena.getY()) {
@@ -79,6 +77,14 @@ public class Point extends Shape {
 		} else {
 			return false;
 		}
+	}*/
+	//pojednostavljena metoda
+	@Override
+	public boolean equals(Object obj) {
+	    if (this == obj) return true;
+	    if (!(obj instanceof Point)) return false;
+	    Point other = (Point) obj;
+	    return this.x == other.x && this.y == other.y;
 	}
 	
 	public boolean contains(int x, int y) {
@@ -113,5 +119,4 @@ public class Point extends Shape {
 			point.setColor(this.getColor());
 			return point;
 		}
-
 }

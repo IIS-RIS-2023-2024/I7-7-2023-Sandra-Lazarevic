@@ -8,9 +8,7 @@ public class Donut extends Circle {
 	private static final long serialVersionUID = 1L;
 	private int innerRadius;
 	
-	public Donut() {
-		
-	}
+	public Donut() {}
 	
 	public Donut(Point center, int radius, int innerRadius) {
 		super(center, radius);
@@ -32,7 +30,7 @@ public class Donut extends Circle {
 		setInnerColor(innerColor);
 	}
 	
-	public void draw(Graphics g) {
+	/*public void draw(Graphics g) {
 		super.draw(g);
 		g.setColor(getColor());
 		g.drawOval(getCenter().getX() - this.innerRadius, getCenter().getY() - this.innerRadius, this.innerRadius * 2, this.innerRadius * 2);
@@ -43,20 +41,52 @@ public class Donut extends Circle {
 		super.fill(g);
 		g.setColor(Color.WHITE);
 		g.fillOval(getCenter().getX() - this.innerRadius, getCenter().getY() - this.innerRadius, this.innerRadius * 2, this.innerRadius * 2);
+	}*/
+	//pojednostavljena metoda
+	@Override
+    public void draw(Graphics g) {
+        super.draw(g);
+        drawInnerCircle(g);
+    }
+
+	@Override
+	public void fill(Graphics g) {
+	    g.setColor(Color.RED);
+	    g.fillOval(0, 0, getRadius() * 2, getRadius() * 2);
+	    
+	    g.setColor(Color.WHITE);
+	    g.fillOval(innerRadius, innerRadius, (getRadius() - innerRadius) * 2, (getRadius() - innerRadius) * 2);
 	}
+
+    private void drawInnerCircle(Graphics g) {
+        g.setColor(getColor());
+        g.drawOval(getCenter().getX() - innerRadius, getCenter().getY() - innerRadius, innerRadius * 2, innerRadius * 2);
+    }
+
+    private void fillInnerCircle(Graphics g) {
+        g.setColor(getInnerColor());
+        g.fillOval(getCenter().getX() - innerRadius, getCenter().getY() - innerRadius, innerRadius * 2, innerRadius * 2);
+    }
 	
-	public int compareTo(Object o) {
-		if (o instanceof Donut) {
-			return (int) (this.area() - ((Donut) o).area());
-		}
-		return 0;
-	}
+    @Override
+    public int compareTo(Object o) {
+        if (o instanceof Donut) {
+            Donut other = (Donut) o;
+            int radiusComparison = Integer.compare(this.getRadius(), other.getRadius());
+            if (radiusComparison != 0) {
+                return radiusComparison;
+            }
+            return Integer.compare(this.innerRadius, other.innerRadius);
+        }
+        return 0;
+    }
+
 	
 	public double area() {
 		return super.area() - innerRadius * innerRadius * Math.PI;
 	}
 	
-	public boolean equals(Object obj) {
+	/*public boolean equals(Object obj) {
 		if (obj instanceof Donut) {
 			Donut d = (Donut) obj;
 			if (this.getCenter().equals(d.getCenter()) &&
@@ -69,18 +99,40 @@ public class Donut extends Circle {
 		} else {
 			return false;
 		}
-	}
+	}*/
 	
-	public boolean contains(int x, int y) {
+	@Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (!(obj instanceof Donut)) return false;
+        Donut other = (Donut) obj;
+        return this.getCenter().equals(other.getCenter()) &&
+               this.getRadius() == other.getRadius() &&
+               this.innerRadius == other.innerRadius;
+    }
+	
+	/*public boolean contains(int x, int y) {
 		double dFromCenter = this.getCenter().distance(x, y);
 		return super.contains(x, y) && dFromCenter > innerRadius;
-	}
+	}*/
 	
-	public boolean contains(Point p) {
+	@Override
+	public boolean contains(int x, int y) {
+	    double distance = getCenter().distance(x, y);  
+	    return distance <= getRadius() && distance >= innerRadius;
+	}
+
+	
+	/*public boolean contains(Point p) {
 		double dFromCenter = this.getCenter().distance(p.getX(), p.getY());
 		return super.contains(p.getX(), p.getY()) && dFromCenter > innerRadius;
+	}*/
+    
+	public boolean contains(Point p) {
+	    double distanceFromCenter = Math.sqrt(Math.pow(p.getX() - getCenter().getX(), 2) + Math.pow(p.getY() - getCenter().getY(), 2));
+	    return distanceFromCenter <= getRadius() && distanceFromCenter >= innerRadius;
 	}
-	
+
 	public int getInnerRadius() {
 		return this.innerRadius;
 	}
@@ -89,8 +141,9 @@ public class Donut extends Circle {
 		this.innerRadius = innerRadius;
 	}
 	
+	@Override
 	public String toString() {
-		return super.toString() + ", inner radius=" + innerRadius;
+	    return "Center=" + getCenter().toString() + ", radius=" + getRadius() + ", inner radius=" + innerRadius;
 	}
-	
+
 }
