@@ -5,9 +5,8 @@ import mvc.DrawingModel;
 
 public class AddHexagonCmd implements Command {
 	
-	
-	private HexagonAdapter hexagon;
-	private DrawingModel model;
+	final HexagonAdapter hexagon;
+	final DrawingModel model;
 	
 	public AddHexagonCmd(HexagonAdapter hexagon, DrawingModel model) {
 		this.hexagon=hexagon;
@@ -17,18 +16,15 @@ public class AddHexagonCmd implements Command {
 	@Override
 	public void execute() {
 		model.add(hexagon);
-
 	}
 
 	@Override
 	public void unexecute() {
 		model.remove(hexagon);
-
 	}
 	
 	@Override
 	public String toString() {
-		return "Added->" + hexagon.toString();
+		return "Hexagon added->" + hexagon.toString();
 	}
-
 }

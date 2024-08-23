@@ -5,8 +5,8 @@ import mvc.DrawingModel;
 
 public class RemoveHexagonCmd implements Command {
 
-	private HexagonAdapter hexagon;
-	private DrawingModel model;
+	final HexagonAdapter hexagon;
+	final DrawingModel model;
 	
 	public RemoveHexagonCmd(HexagonAdapter hexagon, DrawingModel model) {
 		this.hexagon=hexagon;
@@ -16,14 +16,11 @@ public class RemoveHexagonCmd implements Command {
 	@Override
 	public void execute() {
 		model.remove(hexagon);
-
 	}
 
 	@Override
 	public void unexecute() {
 		model.add(hexagon);
-
 	}
-
 }
 

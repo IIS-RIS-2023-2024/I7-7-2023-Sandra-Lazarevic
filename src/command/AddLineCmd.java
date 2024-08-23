@@ -5,8 +5,8 @@ import mvc.DrawingModel;
 
 public class AddLineCmd implements Command {
 
-	private Line line;
-	private DrawingModel model;
+	final Line line;
+	final DrawingModel model;
 	
 	public AddLineCmd(Line line, DrawingModel model) {
 		this.line = line;
@@ -16,18 +16,15 @@ public class AddLineCmd implements Command {
 	@Override
 	public void execute() {
 		model.add(line);
-
 	}
 
 	@Override
 	public void unexecute() {
 		model.remove(line);
-
 	}
 	
 	@Override
 	public String toString() {
-		return "Added->" + line.toString();
+		return "Line added->" + line.toString();
 	}
-
 }

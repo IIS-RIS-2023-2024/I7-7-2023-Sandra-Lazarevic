@@ -5,10 +5,9 @@ import mvc.DrawingModel;
 
 public class AddRectangleCmd implements Command {
 
-	private Rectangle rectangle;
-	private DrawingModel model;
-	
-	
+	final Rectangle rectangle;
+	final DrawingModel model;
+
 	public AddRectangleCmd(Rectangle rectangle, DrawingModel model) {
 		this.rectangle = rectangle;
 		this.model = model;
@@ -17,16 +16,15 @@ public class AddRectangleCmd implements Command {
 	@Override
 	public void execute() {
 		model.add(rectangle);
-
 	}
 
 	@Override
 	public void unexecute() {
 		model.remove(rectangle);
-
-}
+	}
+	
 	@Override
 	public String toString() {
-		return "Added->" + rectangle.toString();
+		return "Rectangle added->" + rectangle.toString();
 	}
 }

@@ -4,58 +4,40 @@ import geometry.Circle;
 
 public class UpdateCircleCmd implements Command {
 
-	private Circle oldState;
-	private Circle newState;
-	private Circle original;
-	
-	
-	public UpdateCircleCmd(Circle oldState, Circle newState) {
-		this.oldState=oldState;
-		this.newState=newState;
-		original=(Circle)oldState.clone();
-	}
+    private final Circle oldState;
+    private final Circle newState;
+    private final Circle original;
 
-	@Override
-	public void execute()  {
-		/*original.getCenter().setX(oldState.getCenter().getX());
-		original.getCenter().setY(oldState.getCenter().getY());
-		try {
-			original.setR(oldState.getR());
+    public UpdateCircleCmd(Circle oldState, Circle newState) {
+        this.oldState = oldState;
+        this.newState = newState;
+        this.original = (Circle) oldState.clone();
+    }
+
+    @Override
+    public void execute() {
+        updateCircle(oldState, newState);
+    }
+
+    @Override
+    public void unexecute() {
+        updateCircle(oldState, original);
+    }
+
+    private void updateCircle(Circle targetCircle, Circle sourceCircle) {
+        targetCircle.getCenter().setX(sourceCircle.getCenter().getX());
+        targetCircle.getCenter().setY(sourceCircle.getCenter().getY());
+        try {
+			targetCircle.setRadius(sourceCircle.getRadius());
 		} catch (Exception e) {
 			e.printStackTrace();
-		}*/
-		
-		oldState.getCenter().setX(newState.getCenter().getX());
-		oldState.getCenter().setY(newState.getCenter().getY());
-		try {
-			oldState.setRadius(newState.getRadius());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		oldState.setColor(newState.getColor());
-		oldState.setInnerColor(newState.getInnerColor());
+		} 
+        targetCircle.setColor(sourceCircle.getColor());
+        targetCircle.setInnerColor(sourceCircle.getInnerColor());
+    }
 
-	}
-
-	@Override
-	public void unexecute() {
-		oldState.getCenter().setX(original.getCenter().getX());
-		oldState.getCenter().setY(original.getCenter().getY());
-		try {
-			oldState.setRadius(original.getRadius());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		oldState.setColor(original.getColor());
-		oldState.setInnerColor(original.getInnerColor());
-	}
-	
-	@Override
-	public String toString() {
-		return "Updated->" + original.toString() + "->" + newState.toString();
-	}
-
-
-
+    @Override
+    public String toString() {
+        return "Circle updated->" + original.toString() + "->" + newState.toString();
+    }
 }
-

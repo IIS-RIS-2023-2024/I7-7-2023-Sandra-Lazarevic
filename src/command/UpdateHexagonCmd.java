@@ -3,60 +3,41 @@ package command;
 import adapter.HexagonAdapter;
 
 public class UpdateHexagonCmd implements Command {
-	
-	private HexagonAdapter oldState;
-	private HexagonAdapter newState;
-	private HexagonAdapter original;
-	
-	
-	public UpdateHexagonCmd(HexagonAdapter oldState, HexagonAdapter newState) {
-		this.oldState=oldState;
-		this.newState=newState;
-		original=(HexagonAdapter) oldState.clone();
-		System.out.println("udje u update" + newState);
-	}
 
-	@Override
-	public void execute()  {
-		System.out.println("udje u execute updatea" + newState);
-		/*original.getHexagon().setX(oldState.getHexagon().getX());
-		original.getHexagon().setY(oldState.getHexagon().getY());
-		try {
-			original.getHexagon().setR(oldState.getHexagon().getR());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}*/
-		
-		oldState.getHexagon().setX(newState.getHexagon().getX());
-		oldState.getHexagon().setY(newState.getHexagon().getY());
-		try {
-			oldState.getHexagon().setR(newState.getHexagon().getR());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		oldState.getHexagon().setBorderColor(newState.getHexagon().getBorderColor());
-		oldState.getHexagon().setAreaColor(newState.getHexagon().getAreaColor());
+    private final HexagonAdapter oldState;
+    private final HexagonAdapter newState;
+    private final HexagonAdapter original;
 
-	}
+    public UpdateHexagonCmd(HexagonAdapter oldState, HexagonAdapter newState) {
+        this.oldState = oldState;
+        this.newState = newState;
+        this.original = (HexagonAdapter) oldState.clone();
+    }
 
-	@Override
-	public void unexecute() {
-		oldState.getHexagon().setX(original.getHexagon().getX());
-		oldState.getHexagon().setY(original.getHexagon().getY());
-		try {
-			oldState.getHexagon().setR(original.getHexagon().getR());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		oldState.getHexagon().setBorderColor(original.getHexagon().getBorderColor());
-		oldState.getHexagon().setAreaColor(original.getHexagon().getAreaColor());
-	}
-	
-	@Override
-	public String toString() {
-		return "Updated->" + original.toString() + "->" + newState.toString();
-	}
+    @Override
+    public void execute() {
+        updateHexagonState(oldState, newState);
+    }
 
+    @Override
+    public void unexecute() {
+        updateHexagonState(oldState, original);
+    }
 
+    private void updateHexagonState(HexagonAdapter targetHexagon, HexagonAdapter sourceHexagon) {
+    	targetHexagon.getHexagon().setX(sourceHexagon.getHexagon().getX());
+    	targetHexagon.getHexagon().setY(sourceHexagon.getHexagon().getY());
+        try {
+        	targetHexagon.getHexagon().setR(sourceHexagon.getHexagon().getR());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        targetHexagon.getHexagon().setBorderColor(sourceHexagon.getHexagon().getBorderColor());
+        targetHexagon.getHexagon().setAreaColor(sourceHexagon.getHexagon().getAreaColor());
+    }
 
+    @Override
+    public String toString() {
+        return "Hexagon updated->" + original.toString() + "->" + newState.toString();
+    }
 }

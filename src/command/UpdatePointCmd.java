@@ -1,43 +1,44 @@
 package command;
 
 import geometry.Point;
-//import java.awt.Color;
 
 public class UpdatePointCmd implements Command {
 	
-	private Point oldState;
-	private Point newState;
-	private Point original;
+	private final Point oldState;
+	private final Point newState;
+	private final Point original;
 	
 	public UpdatePointCmd(Point oldState, Point newState) {
 		this.oldState=oldState;
 		this.newState=newState;
-		original = (Point) oldState.clone();
-		}
+		original = clonePoint(oldState);
+	}
 
 
 	@Override
 	public void execute() {
-		/*original.setX(oldState.getX());
-		original.setY(oldState.getY());
-		original.setColor(oldState.getColor());*/
-		
-		oldState.setX(newState.getX());
-		oldState.setY(newState.getY());
-		oldState.setColor(newState.getColor());
-
+		updatePoint(oldState, newState);
 	}
 
 	@Override
 	public void unexecute() {
-		oldState.setX(original.getX());
-		oldState.setY(original.getY());
-		oldState.setColor(original.getColor());
+        updatePoint(oldState, original);
+
 	}
 	
+    private void updatePoint(Point targetPoint, Point sourcePoint) {
+        targetPoint.setX(sourcePoint.getX());
+        targetPoint.setY(sourcePoint.getY());
+        targetPoint.setColor(sourcePoint.getColor());
+    }
+    
+    private Point clonePoint(Point point) {
+        return (Point) point.clone();
+    }
+    
 	@Override
 	public String toString() {
-		return "Updated->" + original.toString() + "->" + newState.toString();
+		return "Point updated->" + original.toString() + "->" + newState.toString();
 	}
 
 

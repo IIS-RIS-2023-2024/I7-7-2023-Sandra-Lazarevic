@@ -5,9 +5,8 @@ import mvc.DrawingModel;
 
 public class RemoveCircleCmd implements Command {
 
-
-	private Circle circle;
-	private DrawingModel model;
+	final Circle circle;
+	final DrawingModel model;
 	
 	public RemoveCircleCmd(Circle circle, DrawingModel model) {
 		this.circle = circle;
@@ -17,12 +16,10 @@ public class RemoveCircleCmd implements Command {
 	@Override
 	public void execute() {
 		model.remove(circle);
-
 	}
 
 	@Override
 	public void unexecute() {
 		model.add(circle);
-
-}
+	}
 }

@@ -5,8 +5,8 @@ import mvc.DrawingModel;
 
 public class RemoveLineCmd implements Command {
 
-	private Line line;
-	private DrawingModel model;
+	final Line line;
+	final DrawingModel model;
 	
 	public RemoveLineCmd(Line line, DrawingModel model) {
 		this.line = line;
@@ -16,13 +16,10 @@ public class RemoveLineCmd implements Command {
 	@Override
 	public void execute() {
 		model.remove(line);
-
 	}
 
 	@Override
 	public void unexecute() {
 		model.add(line);
-
 	}
-
 }

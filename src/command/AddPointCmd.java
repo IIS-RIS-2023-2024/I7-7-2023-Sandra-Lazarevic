@@ -5,8 +5,8 @@ import mvc.DrawingModel;
 
 public class AddPointCmd implements Command {
 	
-	private Point point;
-	private DrawingModel model;
+	final Point point;
+	final DrawingModel model;
 	
 	public AddPointCmd(Point point, DrawingModel model) {
 		this.point=point;
@@ -25,7 +25,7 @@ public class AddPointCmd implements Command {
 	
 	@Override
 	public String toString() {
-		return "Added->"+point.toString();
+		return "Point added->"+point.toString();
 	}
 
 }

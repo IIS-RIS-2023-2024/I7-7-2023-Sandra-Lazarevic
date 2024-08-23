@@ -5,8 +5,8 @@ import mvc.DrawingModel;
 
 public class AddCircleCmd implements Command {
 
-	private Circle circle;
-	private DrawingModel model;
+	final Circle circle;
+	final DrawingModel model;
 	
 	public AddCircleCmd(Circle circle, DrawingModel model) {
 		this.circle = circle;
@@ -16,18 +16,16 @@ public class AddCircleCmd implements Command {
 	@Override
 	public void execute() {
 		model.add(circle);
-
 	}
 
 	@Override
 	public void unexecute() {
 		model.remove(circle);
-
 	}
 	
 	@Override
 	public String toString() {
-		return "Added->" + circle.toString();
+		return "Circle added->" + circle.toString();
 	}
 
 }

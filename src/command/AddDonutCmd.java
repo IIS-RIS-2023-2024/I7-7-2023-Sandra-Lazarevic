@@ -5,9 +5,8 @@ import mvc.DrawingModel;
 
 public class AddDonutCmd implements Command {
 
-	private Donut donut;
-	private DrawingModel model;
-	
+	final Donut donut;
+	final DrawingModel model;
 	
 	public AddDonutCmd(Donut donut, DrawingModel model) {
 		this.donut = donut;
@@ -17,16 +16,15 @@ public class AddDonutCmd implements Command {
 	@Override
 	public void execute() {
 		model.add(donut);
-
 	}
 
 	@Override
 	public void unexecute() {
 		model.remove(donut);
-
-}
+	}
+	
 	@Override
 	public String toString() {
-		return "Added->" + donut.toString();
+		return "Donut added->" + donut.toString();
 	}
 }
