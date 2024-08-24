@@ -5,38 +5,33 @@ import mvc.DrawingModel;
 
 public class BringToBackCmd implements Command {
 
-	private DrawingModel model;
-	private Shape shape;
-	private int index;
-	
-	 public BringToBackCmd(DrawingModel model, Shape shape, int index) {
-		this.model=model;
-		this.shape=shape;
-		this.index=index;
-	}
-	
-	
+    private final DrawingModel model;
+    private final Shape shape;
+    private final int index;
 
-	@Override
-	public void execute() {	
-			model.getShapes().remove(shape);
-			model.getShapes().add(0,shape);	
+    public BringToBackCmd(DrawingModel model, Shape shape, int index) {
+        this.model = model;
+        this.shape = shape;
+        this.index = index;
+    }
 
-	}
+    @Override
+    public void execute() {
+        moveShape(0);
+    }
 
-	@Override
-	public void unexecute() { 
-		model.getShapes().remove(shape);
-		model.getShapes().add(index,shape);
+    @Override
+    public void unexecute() {
+        moveShape(index);
+    }
 
-	}
+    private void moveShape(int targetIndex) {
+        model.getShapes().remove(shape);
+        model.getShapes().add(targetIndex, shape);
+    }
 
-
-
-	@Override
-	public String toString() { 
-		return "Bring to back->" + shape.toString();
-	}
-	
-
+    @Override
+    public String toString() {
+        return "Bring to back -> " + shape;
+    }
 }

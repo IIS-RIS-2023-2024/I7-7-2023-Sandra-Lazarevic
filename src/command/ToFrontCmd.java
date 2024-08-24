@@ -19,18 +19,18 @@ public class ToFrontCmd implements Command {
 
 	@Override
 	public void execute() {
-		if(index!=model.getShapes().size()-1) {
-			Collections.swap(model.getShapes(), index+1, index);
+		if (index != model.getShapes().size() - 1) {
+			Collections.swap(model.getShapes(), index + 1, index);
 		}
 	}
 
 	@Override
 	public void unexecute() {
-		if(index!=model.getShapes().size()-1) {
-			Collections.swap(model.getShapes(), index, index+1);
+		if (index < model.getShapes().size() - 1) {
+			Collections.swap(model.getShapes(), index + 1, index);
 		}
 	}
-	
+
 	@Override
 	public String toString() {
 		return "To front->" + shape.toString();
