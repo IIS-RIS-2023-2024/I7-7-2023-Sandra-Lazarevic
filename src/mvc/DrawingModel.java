@@ -18,30 +18,65 @@ public class DrawingModel implements Serializable {
 	private Stack<Command> undoStack = new Stack<>();
 	private Stack<Command> redoStack = new Stack<>();
 	public int undoCounter = 0;
-
+	
+	public void add(Shape shape) {
+        shapes.add(shape);
+    }
+	
+    public void addShapeAtIndex(Shape shape, int index) {
+        shapes.add(index, shape);
+    }
+    
 	public void remove(Shape shape) {
-		getShapes().remove(shape);
-		getSelectedShapes().remove(shape);
+		shapes.remove(shape);
+        selectedShapes.remove(shape);
 	}
+	
+    public void addSelectedShape(Shape shape) {
+        selectedShapes.add(shape);
+    }
+	
+    public void deselectShape(Shape shape) {
+        selectedShapes.remove(shape);
+    }
+    
+    public void addCommandToUndoStack(Command command) {
+        undoCounter++;
+        undoStack.push(command);
+    }
 
-	public void deselectShape(Shape shape) {
-		getSelectedShapes().remove(shape);
-	}
+    public void undoLastCommand() {
+        if (!undoStack.isEmpty()) {
+            undoCounter--;
+            undoStack.pop().unexecute();
+        }
+    }
 
-	public void addShapeAtIndex(Shape shape, int index) {
-		getShapes().add(index, shape);
-	}
+    public void addCommandToRedoStack(Command command) {
+        redoStack.push(command);
+    }
 
-	public void add(Shape toBeAdded) {
-		shapes.add(toBeAdded);
+    public void redoLastCommand() {
+        if (!redoStack.isEmpty()) {
+            redoStack.pop().execute();
+        }
+    }
 
-	}
+    public void clearShapes() {
+        shapes.clear();
+    }
 
-	public void addSelectedShape(Shape toBeAdded) {
-		selectedShapes.add(toBeAdded);
+    public void addMultipleShapes(List<Shape> shapesToAdd) {
+        shapes.addAll(shapesToAdd);
+    }
 
-	}
+    public int getIndexOf(Shape shape) {
+        return shapes.indexOf(shape);
+    }
 
+    public Shape getShapeByIndex(int index) {
+        return shapes.get(index);
+    }
 	public Point getStartPoint() {
 		return startPoint;
 	}
@@ -82,54 +117,8 @@ public class DrawingModel implements Serializable {
 		this.redoStack = redoStack;
 	}
 
-	public void pushToUndoStack(Command toBePushed) {
-		undoCounter++;
-		this.undoStack.push(toBePushed);
-
-	}
-
-	public void removeFromUndoStack() {
-		undoCounter--;
-		if (undoStack.peek() != null) {
-			this.undoStack.pop().unexecute();
-		}
-
-	}
-
-	public void pushToRedoStack(Command toBePushed) {
-		System.out.println("pushToRedoStack: " + this.getRedoStack());
-		this.redoStack.push(toBePushed);
-
-	}
-
-	public void removeFromRedoStack() {
-		if (redoStack.peek() != null) {
-			this.redoStack.pop().execute();
-		}
-
-	}
-
-	public void clear() {
-
-		shapes.clear();
-
-	}
-
 	public List<Shape> getSelectedShapes() {
 		return selectedShapes;
 	}
-
-	public void addMultiple(ArrayList<Shape> shapes) {
-		this.shapes.addAll(shapes);
-
-	}
-
-	public int getIndexOf(Shape shape) {
-		return shapes.indexOf(shape);
-	}
-
-	public Shape getByIndex(int index) {
-		return shapes.get(index);
-	}
-
+	
 }

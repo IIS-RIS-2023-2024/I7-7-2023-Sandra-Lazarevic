@@ -3,252 +3,195 @@ package mvc;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
 import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import geometry.Donut;
 import geometry.Point;
 
-import java.awt.GridBagLayout;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import javax.swing.JTextField;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
 public class DlgDonut extends JDialog {
-	
-	private static final long serialVersionUID = 1L;
-	private final JPanel contentPanel = new JPanel();
-	private JTextField txtX;
-	private JTextField txtY;
-	private JTextField txtR;
-	private JTextField txtInnerR;
-	public boolean confirm;
-	public Donut donut;
-	public JButton btnInnerColor;
-	public JButton btnOutlineColor;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			DlgDonut dialog = new DlgDonut();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+    private static final long serialVersionUID = 1L;
+    private final JPanel contentPanel = new JPanel();
+    private JTextField txtX;
+    private JTextField txtY;
+    private JTextField txtR;
+    private JTextField txtInnerR;
+    private boolean confirmed;
+    private Donut donut;
+    private JButton btnInnerColor;
+    private JButton btnOutlineColor;
 
-	/**
-	 * Create the dialog.
-	 */
-	public DlgDonut() {
-		setTitle("Add or modify donut");
-		setBackground(Color.WHITE);
-		setModal(true);
-		setResizable(false);
-		setLocationRelativeTo(null);
-		setBounds(100, 100, 450, 300);
-		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		GridBagLayout gbl_contentPanel = new GridBagLayout();
-		gbl_contentPanel.columnWidths = new int[] { 0, 0, 0, 0, 0, 0 };
-		gbl_contentPanel.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-		gbl_contentPanel.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE };
-		gbl_contentPanel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
-		contentPanel.setLayout(gbl_contentPanel);
-		{
-			JLabel lblNewLabel = new JLabel("CENTER OF DONUT");
-			GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-			gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
-			gbc_lblNewLabel.gridx = 2;
-			gbc_lblNewLabel.gridy = 0;
-			contentPanel.add(lblNewLabel, gbc_lblNewLabel);
-		}
-		{
-			JLabel lblNewLabel_1 = new JLabel("coordinate X");
-			GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
-			gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
-			gbc_lblNewLabel_1.gridx = 2;
-			gbc_lblNewLabel_1.gridy = 1;
-			contentPanel.add(lblNewLabel_1, gbc_lblNewLabel_1);
-		}
-		{
-			txtX = new JTextField();
-			GridBagConstraints gbc_txtX = new GridBagConstraints();
-			gbc_txtX.insets = new Insets(0, 0, 5, 0);
-			gbc_txtX.fill = GridBagConstraints.HORIZONTAL;
-			gbc_txtX.gridx = 4;
-			gbc_txtX.gridy = 1;
-			contentPanel.add(txtX, gbc_txtX);
-			txtX.setColumns(10);
-		}
-		{
-			JLabel lblNewLabel_2 = new JLabel("coordinate Y");
-			GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
-			gbc_lblNewLabel_2.insets = new Insets(0, 0, 5, 5);
-			gbc_lblNewLabel_2.gridx = 2;
-			gbc_lblNewLabel_2.gridy = 2;
-			contentPanel.add(lblNewLabel_2, gbc_lblNewLabel_2);
-		}
-		{
-			txtY = new JTextField();
-			GridBagConstraints gbc_txtY = new GridBagConstraints();
-			gbc_txtY.insets = new Insets(0, 0, 5, 0);
-			gbc_txtY.fill = GridBagConstraints.HORIZONTAL;
-			gbc_txtY.gridx = 4;
-			gbc_txtY.gridy = 2;
-			contentPanel.add(txtY, gbc_txtY);
-			txtY.setColumns(10);
-		}
-		{
-			JLabel lblNewLabel_3 = new JLabel("Radius");
-			GridBagConstraints gbc_lblNewLabel_3 = new GridBagConstraints();
-			gbc_lblNewLabel_3.insets = new Insets(0, 0, 5, 5);
-			gbc_lblNewLabel_3.gridx = 2;
-			gbc_lblNewLabel_3.gridy = 4;
-			contentPanel.add(lblNewLabel_3, gbc_lblNewLabel_3);
-		}
-		{
-			txtR = new JTextField();
-			GridBagConstraints gbc_txtR = new GridBagConstraints();
-			gbc_txtR.insets = new Insets(0, 0, 5, 0);
-			gbc_txtR.fill = GridBagConstraints.HORIZONTAL;
-			gbc_txtR.gridx = 4;
-			gbc_txtR.gridy = 4;
-			contentPanel.add(txtR, gbc_txtR);
-			txtR.setColumns(10);
-		}
-		{
-			JLabel lblNewLabel_4 = new JLabel("Inner radius");
-			GridBagConstraints gbc_lblNewLabel_4 = new GridBagConstraints();
-			gbc_lblNewLabel_4.insets = new Insets(0, 0, 5, 5);
-			gbc_lblNewLabel_4.gridx = 2;
-			gbc_lblNewLabel_4.gridy = 5;
-			contentPanel.add(lblNewLabel_4, gbc_lblNewLabel_4);
-		}
-		{
-			txtInnerR = new JTextField();
-			GridBagConstraints gbc_txtInnerR = new GridBagConstraints();
-			gbc_txtInnerR.insets = new Insets(0, 0, 5, 0);
-			gbc_txtInnerR.fill = GridBagConstraints.HORIZONTAL;
-			gbc_txtInnerR.gridx = 4;
-			gbc_txtInnerR.gridy = 5;
-			contentPanel.add(txtInnerR, gbc_txtInnerR);
-			txtInnerR.setColumns(10);
-		}
+    public static void main(String[] args) {
+        try {
+            DlgDonut dialog = new DlgDonut();
+            dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+            dialog.setVisible(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
-		btnInnerColor = new JButton("Inner Color");
-		btnInnerColor.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Color innerColor = JColorChooser.showDialog(null, "Choose inner color", btnInnerColor.getBackground());
-				if (innerColor != null)
-					btnInnerColor.setBackground(innerColor);
+    public DlgDonut() {
+        setupDialog();
+        setupContentPanel();
+        setupButtons();
+    }
 
-			}
-		});
-		btnInnerColor.setBackground(Color.WHITE);
-		GridBagConstraints gbc_btnInnerColor = new GridBagConstraints();
-		gbc_btnInnerColor.insets = new Insets(0, 0, 5, 5);
-		gbc_btnInnerColor.gridx = 2;
-		gbc_btnInnerColor.gridy = 6;
-		contentPanel.add(btnInnerColor, gbc_btnInnerColor);
+    private void setupDialog() {
+        setTitle("Add or Modify Donut");
+        setBackground(Color.WHITE);
+        setModal(true);
+        setResizable(false);
+        setLocationRelativeTo(null);
+        setBounds(100, 100, 450, 300);
+        getContentPane().setLayout(new BorderLayout());
+    }
 
-		btnOutlineColor = new JButton("Outline Color");
-		btnOutlineColor.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Color outlineColor = JColorChooser.showDialog(null, "Choose outline color",
-						btnOutlineColor.getBackground());
-				if (outlineColor != null)
-					btnOutlineColor.setBackground(outlineColor);
+    private void setupContentPanel() {
+        contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+        getContentPane().add(contentPanel, BorderLayout.CENTER);
+        GridBagLayout layout = new GridBagLayout();
+        layout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+        layout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+        contentPanel.setLayout(layout);
 
-			}
-		});
+        addLabel("CENTER OF DONUT", 2, 0);
+        addLabel("Coordinate X", 2, 1);
+        txtX = addTextField(4, 1);
 
-		btnOutlineColor.setBackground(Color.RED);
-		GridBagConstraints gbc_btnOutlineColor = new GridBagConstraints();
-		gbc_btnOutlineColor.insets = new Insets(0, 0, 0, 5);
-		gbc_btnOutlineColor.gridx = 2;
-		gbc_btnOutlineColor.gridy = 7;
-		contentPanel.add(btnOutlineColor, gbc_btnOutlineColor);
+        addLabel("Coordinate Y", 2, 2);
+        txtY = addTextField(4, 2);
 
-		{
-			JPanel buttonPane = new JPanel();
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			{
-				JButton okButton = new JButton("OK");
-				okButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
+        addLabel("Radius", 2, 4);
+        txtR= addTextField(4, 4);
 
-						if (txtX.getText().trim().isEmpty() || txtY.getText().trim().isEmpty()
-								|| txtR.getText().trim().isEmpty() || txtInnerR.getText().trim().isEmpty()) {
-							setConfirm(false);
-							JOptionPane.showMessageDialog(null, "All values are required!", "Error",
-									JOptionPane.ERROR_MESSAGE);
+        addLabel("Inner Radius", 2, 5);
+        txtInnerR = addTextField(4, 5);
 
-						} else {
-							try {
-								if (Integer.parseInt(txtInnerR.getText().toString()) <= 0
-										|| Integer.parseInt(txtR.getText().toString()) <= 0
-										|| Integer.parseInt(txtX.getText().toString()) < 0
-										|| Integer.parseInt(txtY.getText().toString()) < 0)
-									JOptionPane.showMessageDialog(null, "Insert values greater then 0!", "Error",
-											JOptionPane.ERROR_MESSAGE);
-								else {
-									if (Integer.parseInt(txtInnerR.getText().toString()) < Integer
-											.parseInt(txtR.getText().toString())) {
-										donut = new Donut(
-												new Point(Integer.parseInt(txtX.getText().toString()),
-														Integer.parseInt(txtY.getText().toString())),
-												Integer.parseInt(txtR.getText().toString()),
-												Integer.parseInt(txtInnerR.getText().toString()), false,
-												btnOutlineColor.getBackground(), btnInnerColor.getBackground());
+        btnInnerColor = createColorButton("Inner Color", Color.WHITE, 2, 6);
+        btnOutlineColor = createColorButton("Outline Color", Color.RED, 2, 7);
+    }
 
-										setConfirm(true);
-										setVisible(false);
-									} else {
-										JOptionPane.showMessageDialog(null,
-												"Please insert inner radius less than outher radius!", "Error",
-												JOptionPane.ERROR_MESSAGE);
-									}
+    private JLabel addLabel(String text, int x, int y) {
+        JLabel label = new JLabel(text);
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(0, 0, 5, 5);
+        gbc.gridx = x;
+        gbc.gridy = y;
+        contentPanel.add(label, gbc);
+        return label;
+    }
 
-								}
-							} catch (Exception e2) {
-								JOptionPane.showMessageDialog(null, "Enter numbers only!", "Error",
-										JOptionPane.ERROR_MESSAGE);
-							}
+    private JTextField addTextField(int x, int y) {
+        JTextField textField = new JTextField();
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(0, 0, 5, 0);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridx = x;
+        gbc.gridy = y;
+        contentPanel.add(textField, gbc);
+        textField.setColumns(10);
+        return textField;
+    }
 
-						}
-					}
-				});
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
-			}
-			{
-				JButton cancelButton = new JButton("Cancel");
-				cancelButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						dispose();
-					}
-				});
-				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
-			}
-		}
-	}
+    private JButton createColorButton(String text, Color color, int x, int y) {
+        JButton button = new JButton(text);
+        button.setBackground(color);
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Color chosenColor = JColorChooser.showDialog(null, "Choose color", button.getBackground());
+                if (chosenColor != null) {
+                    button.setBackground(chosenColor);
+                }
+            }
+        });
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(0, 0, 5, 5);
+        gbc.gridx = x;
+        gbc.gridy = y;
+        contentPanel.add(button, gbc);
+        return button;
+    }
+
+    private void setupButtons() {
+        JPanel buttonPane = new JPanel();
+        buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        getContentPane().add(buttonPane, BorderLayout.SOUTH);
+
+        JButton okButton = new JButton("OK");
+        okButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                handleOkAction();
+            }
+        });
+        okButton.setActionCommand("OK");
+        buttonPane.add(okButton);
+        getRootPane().setDefaultButton(okButton);
+
+        JButton cancelButton = new JButton("Cancel");
+        cancelButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+            }
+        });
+        cancelButton.setActionCommand("Cancel");
+        buttonPane.add(cancelButton);
+    }
+
+    private void handleOkAction() {
+        if (isInputValid()) {
+            try {
+                int x = Integer.parseInt(txtX.getText().trim());
+                int y = Integer.parseInt(txtY.getText().trim());
+                int radius = Integer.parseInt(txtR.getText().trim());
+                int innerRadius = Integer.parseInt(txtInnerR.getText().trim());
+
+                if (innerRadius >= radius) {
+                    showError("Inner radius must be less than outer radius!");
+                } else {
+                    donut = new Donut(new Point(x, y), radius, innerRadius, false,
+                            btnOutlineColor.getBackground(), btnInnerColor.getBackground());
+                    confirmed = true;
+                    setVisible(false);
+                }
+            } catch (NumberFormatException ex) {
+                showError("Enter valid numbers for all fields!");
+            }
+        } else {
+            showError("All values are required and must be greater than 0!");
+        }
+    }
+
+    private boolean isInputValid() {
+        return !txtX.getText().trim().isEmpty() &&
+               !txtY.getText().trim().isEmpty() &&
+               !txtR.getText().trim().isEmpty() &&
+               !txtInnerR.getText().trim().isEmpty() &&
+               Integer.parseInt(txtX.getText().trim()) >= 0 &&
+               Integer.parseInt(txtY.getText().trim()) >= 0 &&
+               Integer.parseInt(txtR.getText().trim()) > 0 &&
+               Integer.parseInt(txtInnerR.getText().trim()) > 0;
+    }
+
+    private void showError(String message) {
+        JOptionPane.showMessageDialog(null, message, "Error", JOptionPane.ERROR_MESSAGE);
+    }
 
 	public JTextField getTxtX() {
 		return txtX;
@@ -270,24 +213,24 @@ public class DlgDonut extends JDialog {
 		return txtR;
 	}
 
-	public void setTxtR(JTextField txtR) {
-		this.txtR = txtR;
+	public void setTxtRadius(JTextField txtR) {
+		this.txtR= txtR;
 	}
 
 	public JTextField getTxtInnerR() {
 		return txtInnerR;
 	}
 
-	public void setTxtInnerR(JTextField txtInnerR) {
+	public void setTxtInnerRadius(JTextField txtInnerR) {
 		this.txtInnerR = txtInnerR;
 	}
 
-	public boolean isConfirm() {
-		return confirm;
+	public boolean isConfirmed() {
+		return confirmed;
 	}
 
-	public void setConfirm(boolean confirm) {
-		this.confirm = confirm;
+	public void setConfirmed(boolean confirmed) {
+		this.confirmed = confirmed;
 	}
 
 	public Donut getDonut() {

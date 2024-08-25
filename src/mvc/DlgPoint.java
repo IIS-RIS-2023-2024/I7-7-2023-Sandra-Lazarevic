@@ -1,223 +1,191 @@
 package mvc;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.FlowLayout;
-
-import javax.swing.JButton;
-import javax.swing.JColorChooser;
-import javax.swing.JDialog;
-import javax.swing.JPanel;
+import java.awt.*;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-
 import geometry.Point;
 
-import java.awt.GridBagLayout;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import javax.swing.JTextField;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
 public class DlgPoint extends JDialog {
-	
-	private static final long serialVersionUID = 1L;
-	private final JPanel contentPanel = new JPanel();
-	private JTextField txtX;
-	private JTextField txtY;
-	private Point p;
-	private boolean confirm;
-	private JButton btnColor; 
-	private Color c = Color.red; 
 
+    private static final long serialVersionUID = 1L;
+    private final JPanel contentPanel = new JPanel();
+    private JTextField txtX;
+    private JTextField txtY;
+    private Point p;
+    private boolean confirm;
+    private JButton btnColor;
+    private Color color = Color.RED;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			DlgPoint dialog = new DlgPoint();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            try {
+                DlgPoint dialog = new DlgPoint();
+                dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+                dialog.setVisible(true);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
 
-	/**
-	 * Create the dialog.
-	 */
-	public DlgPoint() {
-		setTitle("Modify Point");
-		setModal(true);
-		setResizable(false);
-		setBackground(Color.WHITE);
-		setLocationRelativeTo(null);
-		setBounds(100, 100, 450, 300);
-		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		GridBagLayout gbl_contentPanel = new GridBagLayout();
-		gbl_contentPanel.columnWidths = new int[] { 0, 0, 0, 0, 0, 0 };
-		gbl_contentPanel.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0 };
-		gbl_contentPanel.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE };
-		gbl_contentPanel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
-		contentPanel.setLayout(gbl_contentPanel);
-		{
-			JLabel lblNewLabel = new JLabel("Coordinate X");
-			GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-			gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
-			gbc_lblNewLabel.gridx = 1;
-			gbc_lblNewLabel.gridy = 1;
-			contentPanel.add(lblNewLabel, gbc_lblNewLabel);
-		}
-		{
-			txtX = new JTextField();
-			GridBagConstraints gbc_txtX = new GridBagConstraints();
-			gbc_txtX.insets = new Insets(0, 0, 5, 0);
-			gbc_txtX.fill = GridBagConstraints.HORIZONTAL;
-			gbc_txtX.gridx = 4;
-			gbc_txtX.gridy = 1;
-			contentPanel.add(txtX, gbc_txtX);
-			txtX.setColumns(10);
-		}
-		{
-			JLabel lblNewLabel_1 = new JLabel("Coordinate Y");
-			GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
-			gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
-			gbc_lblNewLabel_1.gridx = 1;
-			gbc_lblNewLabel_1.gridy = 3;
-			contentPanel.add(lblNewLabel_1, gbc_lblNewLabel_1);
-		}
-		{
-			txtY = new JTextField();
-			GridBagConstraints gbc_txtY = new GridBagConstraints();
-			gbc_txtY.insets = new Insets(0, 0, 5, 0);
-			gbc_txtY.fill = GridBagConstraints.HORIZONTAL;
-			gbc_txtY.gridx = 4;
-			gbc_txtY.gridy = 3;
-			contentPanel.add(txtY, gbc_txtY);
-			txtY.setColumns(10);
-		}
+    public DlgPoint() {
+        initialize();
+    }
 
-		btnColor = new JButton("COLOR");
-		btnColor.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Color outlineColor = JColorChooser.showDialog(null, "Choose outline color", btnColor.getBackground());
-				if (outlineColor != null)
-					btnColor.setBackground(outlineColor);
-			}
+    private void initialize() {
+        setTitle("Modify Point");
+        setModal(true);
+        setResizable(false);
+        setBounds(100, 100, 450, 300);
+        setLocationRelativeTo(null);
+        getContentPane().setLayout(new BorderLayout());
+        contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+        getContentPane().add(contentPanel, BorderLayout.CENTER);
+        GridBagLayout gbl_contentPanel = new GridBagLayout();
+        gbl_contentPanel.columnWidths = new int[]{0, 0, 0, 0, 0, 0};
+        gbl_contentPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0};
+        gbl_contentPanel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+        gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+        contentPanel.setLayout(gbl_contentPanel);
 
-		});
-		btnColor.setBackground(Color.WHITE);
-		GridBagConstraints gbc_btnColor = new GridBagConstraints();
-		gbc_btnColor.insets = new Insets(0, 0, 0, 5);
-		gbc_btnColor.gridx = 3;
-		gbc_btnColor.gridy = 5;
-		contentPanel.add(btnColor, gbc_btnColor);
+        addLabel("Coordinate X", 1, 1);
+        txtX = addTextField(4, 1);
 
-		{
-			JPanel buttonPane = new JPanel();
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			{
-				JButton okButton = new JButton("OK");
-				okButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						if (txtX.getText().trim().isEmpty() || txtY.getText().trim().isEmpty()) {
-							JOptionPane.showMessageDialog(null, "All fields are required!", "ERROR",
-									JOptionPane.ERROR_MESSAGE);
-						} else {
+        addLabel("Coordinate Y", 1, 3);
+        txtY = addTextField(4, 3);
 
-							try {
-								if (Integer.parseInt(txtX.getText().toString()) < 0
-										|| Integer.parseInt(txtY.getText().toString()) < 0) {
-									JOptionPane.showMessageDialog(null, "Insert values greater than 0!", "ERROR",
-											JOptionPane.ERROR_MESSAGE);
-								} else {
+        btnColor = new JButton("COLOR");
+        btnColor.setBackground(Color.WHITE);
+        btnColor.addActionListener(e -> chooseColor());
+        GridBagConstraints gbc_btnColor = new GridBagConstraints();
+        gbc_btnColor.insets = new Insets(0, 0, 0, 5);
+        gbc_btnColor.gridx = 3;
+        gbc_btnColor.gridy = 5;
+        contentPanel.add(btnColor, gbc_btnColor);
 
-									p = new Point(Integer.parseInt(txtX.getText().toString()),
-											Integer.parseInt(txtY.getText().toString()), false,
-											btnColor.getBackground());
-									confirm = true;
-									setVisible(false);
+        JPanel buttonPane = new JPanel();
+        buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        getContentPane().add(buttonPane, BorderLayout.SOUTH);
 
-								}
-							} catch (Exception e1) {
-								JOptionPane.showMessageDialog(null, "Enter numbers only!", "Error",
-										JOptionPane.ERROR_MESSAGE);
+        JButton okButton = new JButton("OK");
+        okButton.addActionListener(e -> onOk());
+        okButton.setActionCommand("OK");
+        buttonPane.add(okButton);
+        getRootPane().setDefaultButton(okButton);
 
-							}
-						}
+        JButton cancelButton = new JButton("Cancel");
+        cancelButton.addActionListener(e -> dispose());
+        cancelButton.setActionCommand("Cancel");
+        buttonPane.add(cancelButton);
+    }
 
-					}
-				});
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
-			}
-			{
-				JButton cancelButton = new JButton("Cancel");
-				cancelButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						dispose();
-					}
-				});
-				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
-			}
-		}
-	}
+    private void addLabel(String text, int gridx, int gridy) {
+        JLabel label = new JLabel(text);
+        GridBagConstraints gbc_label = new GridBagConstraints();
+        gbc_label.insets = new Insets(0, 0, 5, 5);
+        gbc_label.gridx = gridx;
+        gbc_label.gridy = gridy;
+        contentPanel.add(label, gbc_label);
+    }
 
-	public JTextField getTxtX() {
-		return txtX;
-	}
+    private JTextField addTextField(int gridx, int gridy) {
+        JTextField textField = new JTextField();
+        GridBagConstraints gbc_textField = new GridBagConstraints();
+        gbc_textField.insets = new Insets(0, 0, 5, 0);
+        gbc_textField.fill = GridBagConstraints.HORIZONTAL;
+        gbc_textField.gridx = gridx;
+        gbc_textField.gridy = gridy;
+        contentPanel.add(textField, gbc_textField);
+        textField.setColumns(10);
+        return textField;
+    }
 
-	public void setTxtX(JTextField txtX) {
-		this.txtX = txtX;
-	}
+    private void chooseColor() {
+        Color newColor = JColorChooser.showDialog(this, "Choose outline color", color);
+        if (newColor != null) {
+            color = newColor;
+            btnColor.setBackground(color);
+        }
+    }
 
-	public JTextField getTxtY() {
-		return txtY;
-	}
+    public void onOk() {
+        if (isInputValid()) {
+            p = new Point(Integer.parseInt(txtX.getText().trim()), Integer.parseInt(txtY.getText().trim()), false, color);
+            confirm = true;
+            setVisible(false);
+        }
+    }
 
-	public void setTxtY(JTextField txtY) {
-		this.txtY = txtY;
-	}
+    private boolean isInputValid() {
+        if (txtX.getText().trim().isEmpty() || txtY.getText().trim().isEmpty()) {
+            showMessage("All fields are required!", "ERROR");
+            return false;
+        }
 
-	public boolean isConfirm() {
-		return confirm;
-	}
+        try {
+            int x = Integer.parseInt(txtX.getText().trim());
+            int y = Integer.parseInt(txtY.getText().trim());
 
-	public void setConfirm(boolean confirm) {
-		this.confirm = confirm;
-	}
+            if (x < 0 || y < 0) {
+                showMessage("Insert values greater than 0!", "ERROR");
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            showMessage("Enter numbers only!", "ERROR");
+            return false;
+        }
+        return true;
+    }
 
-	public JButton getBtnColor() {
-		return btnColor;
-	}
+    private void showMessage(String message, String title) {
+        JOptionPane.showMessageDialog(this, message, title, JOptionPane.ERROR_MESSAGE);
+    }
 
-	public void setBtnColor(JButton btnColor) {
-		this.btnColor = btnColor;
-	}
+    public JTextField getTxtX() {
+        return txtX;
+    }
 
-	public Point getP() {
-		return p;
-	}
+    public void setTxtX(JTextField txtX) {
+        this.txtX = txtX;
+    }
 
-	public void setP(Point p) {
-		this.p = p;
-	}
+    public JTextField getTxtY() {
+        return txtY;
+    }
 
-	public Color getC() {
-		return c;
-	}
+    public void setTxtY(JTextField txtY) {
+        this.txtY = txtY;
+    }
 
-	public void setC(Color c) {
-		this.c = c;
-	}
+    public boolean isConfirm() {
+        return confirm;
+    }
 
+    public void setConfirm(boolean confirm) {
+        this.confirm = confirm;
+    }
+
+    public JButton getBtnColor() {
+        return btnColor;
+    }
+
+    public void setBtnColor(JButton btnColor) {
+        this.btnColor = btnColor;
+    }
+
+    public Point getP() {
+        return p;
+    }
+
+    public void setP(Point p) {
+        this.p = p;
+    }
+
+    public Color getC() {
+        return color;
+    }
+
+    public void setC(Color color) {
+        this.color = color;
+    }
 }

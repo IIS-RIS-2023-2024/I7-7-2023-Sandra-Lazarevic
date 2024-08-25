@@ -2,15 +2,11 @@ package tests.geometry_tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import geometry.Hexagon;
-
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Polygon;
 
 public class HexagonTest {
 
